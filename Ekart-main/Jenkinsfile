@@ -15,6 +15,7 @@ pipeline {
      }
             }
          steps {
+		sh "ls -l Ekart-main/target/"
             sh "mvn -f Ekart-main/pom.xml -Dmaven.test.skip=true clean install -X"
 		 //sh "mvn clean package -DskipTests=true"
 		 //sh "mvn -f Ekart-main/pom.xml clean install -Dmaven.test.skip=true"
@@ -30,6 +31,7 @@ pipeline {
 		  //sh 'docker stop ${APP_NAME}'
             //sh 'docker rm ${APP_NAME}'
           //sh 'docker image rm ${APP_NAME}'
+			    		sh "ls -l dockerImage/"
 					sh 'mkdir -p dockerImage/'
 					sh 'cp Ekart-main/Dockerfile dockerImage'
 					sh 'cp Ekart-main/target/*.jar dockerImage/'
