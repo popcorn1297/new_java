@@ -24,9 +24,9 @@ pipeline {
 		stage('Building & Deploy Image') {
 		agent any
 		    steps{
-		  sh 'docker stop ${APP_NAME}'
-            sh 'docker rm ${APP_NAME}'
-          sh 'docker image rm ${APP_NAME}'
+		  //sh 'docker stop ${APP_NAME}'
+            //sh 'docker rm ${APP_NAME}'
+          //sh 'docker image rm ${APP_NAME}'
 					sh 'mkdir -p dockerImage/'
 					sh 'cp docker/Dockerfile'
 					sh 'cp target/*.jar dockerImage/'
