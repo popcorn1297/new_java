@@ -31,7 +31,7 @@ pipeline {
             //sh 'docker rm ${APP_NAME}'
           //sh 'docker image rm ${APP_NAME}'
 					sh 'mkdir -p dockerImage/'
-					sh 'cp Ekart-main/docker/Dockerfile dockerImage'
+					sh 'cp Dockerfile dockerImage'
 					sh 'cp Ekart-main/target/*.jar dockerImage/'
 					 sh 'docker build --tag=${APP_NAME} dockerImage/.'
 		     sh 'docker tag ${APP_NAME} ${IMAGE_TAG}'
