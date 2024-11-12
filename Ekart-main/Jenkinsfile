@@ -1,0 +1,47 @@
+pipeline {
+  environment {
+   	 PROJECT = "jshop"
+ 	   APP_NAME = "jshop"
+     BRANCH_NAME = "main"
+   	 IMAGE_TAG = "${PROJECT}/${APP_NAME}:${BRANCH_NAME}.${env.BUILD_NUMBER}"
+                }
+    agent none 
+    stages {
+        stage('Build') {
+        agent {
+                docker {
+      image 'maven:3.8.7'
+      args '-v /root/.m2:/root/.m2'
+     }
+            }
+         steps {
+            sh "mvn -f Ekart-main/pom.xml -Dmaven.test.skip=true clean install -X"
+           
+
+          }
+
+        }      
+		stage('Building & Deploy Image') {
+		agent any
+		    steps{
+		  sh 'docker stop ${APP_NAME}'
+            sh 'docker rm ${APP_NAME}'
+          sh 'docker image rm ${APP_NAME}'
+					sh 'mkdir -p dockerImage/'
+					sh 'cp docker/Dockerfile'
+					sh 'cp target/*.jar dockerImage/'
+					 sh 'docker build --tag=${APP_NAME} dockerImage/.'
+		     sh 'docker tag ${APP_NAME} ${IMAGE_TAG}'
+          sh 'rm -rf dockerImage/' 
+        }
+        }
+        stage('Deploy') {
+        agent any
+              steps {
+              sh "docker run --restart=always -d -p 8060:8070 --name=${APP_NAME} ${IMAGE_TAG}"
+                  }
+        }
+            }
+      
+}
+\
