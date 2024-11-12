@@ -16,6 +16,7 @@ pipeline {
             }
          steps {
             sh "mvn -f Ekart-main/pom.xml -Dmaven.test.skip=true clean install -X"
+		 sh "mvn clean package -DskipTests=true"
            
 
           }
