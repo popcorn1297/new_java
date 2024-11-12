@@ -15,9 +15,10 @@ pipeline {
      }
             }
          steps {
-            sh "mvn -f Ekart-main/pom.xml -Dmaven.test.skip=true clean install -X"
+            //sh "mvn -f Ekart-main/pom.xml -Dmaven.test.skip=true clean install -X"
 		 //sh "mvn clean package -DskipTests=true"
-		 sh "ls -R /var/jenkins_home/workspace/javashop/Ekart-main"
+		 mvn clean install -Dmaven.test.skip=true
+		 //sh "ls -R /var/jenkins_home/workspace/javashop/Ekart-main"
            
 
           }
