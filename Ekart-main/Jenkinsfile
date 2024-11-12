@@ -43,7 +43,7 @@ pipeline {
         stage('Deploy') {
         agent any
               steps {
-              sh "docker run --restart=always -d -p 8060:8070 --name=${APP_NAME} ${IMAGE_TAG}"
+              sh 'docker run --restart=always -d -p 8060:8070 --name=${APP_NAME} ${IMAGE_TAG}'
                   }
         }
             }
